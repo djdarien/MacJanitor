@@ -1,16 +1,35 @@
 #!/bin/bash
 
 ######################################################################################
-# This script does some basic maintenance operations on Mac OS X (almost any version)#
-#     v2.1 		     #
+# This script does some  maintenance operations on Mac OS X (10.11 and greater)#
+#     v2.2 		 Rudolph Build    #
+## SOURCE https://github.com/djdarien/MacJanitor/tree/rudolph   ####
 ######################################################################################
+
+
 #lets check your Mac OS version
+echo OS System Version Check
+echo Version checking...............
+sleep 1s
 if [[ ${OSTYPE:6} -ge 15 ]]; then
     echo "Your Mac OS version is atleast 10.11, App will continue";
 else
     echo "You have an INCOMPATIBLE Mac OS version! App will quit";
     sleep 3s
     exit
+fi
+
+## START
+
+echo -n "Would you like to run Mac Janitor?? Otherwise 'N' for No to quit & cancel!! "
+read answer
+if echo "$answer" | grep -iq "^y" ;then
+echo Continuing! ... Running Mac Janitor!
+sleep 3s
+else
+echo Canceled! EXITING NOW!!!
+sleep 3s
+exit
 fi
 
 
@@ -114,7 +133,12 @@ echo Continuing....
 sleep 3s
 say "Mac Janitor has completed maintenance on your Mac"
 echo ${BLUE} Finished the whole maintenance process. ${STOPCOLOR}
-echo Will will need to reboot. REBOOTING NOW!
+say System Needs to restart!
+echo Will will need to reboot. REBOOTING in 10 SECONDS!
+echo .....
+echo ..........
+echo  ...............
+sleep 10s
 sudo reboot
 fi
 
