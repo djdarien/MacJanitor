@@ -44,7 +44,26 @@ defaults write com.apple.dock expose-animation-duration -float 0.1
 # Disable animations when you open an application from the Dock.
 defaults write com.apple.dock launchanim -bool false
 #reduce transparancy within menus and windows
-echo ${GREEN} Done. ${STOPCOLOR}
+######
+
+#Disable Sudden Motion Sensor
+echo -n "Is this Mac using an SSD? If yes lets optimize. Otherwise 'N' for No to continue!! "
+read answer
+if echo "$answer" | grep -iq "^y" ;then
+echo  Disabling Sudden Motion Sensor.......
+sleep 4s
+sudo pmset -a sms 0
+else
+echo Continuing....
+sleep 3s
+echo ${GREEN} Continuing onto next part!!${STOPCOLOR}
+fi
+
+#Clear DNS Cache
+echo ${YELLOW} Clearing DNS cache... ${STOPCOLOR}
+sudo dscacheutil -flushcache && \
+sudo killall -HUP mDNSResponder
+echo ${GREEN} DNS Cache cleared!! ${STOPCOLOR}
 
 # Clears font cache
 echo ${YELLOW} Clearing font cache... ${STOPCOLOR}
@@ -80,5 +99,22 @@ echo ${GREEN} Done. ${STOPCOLOR}
 echo ${YELLOW} Clearing RAM Cache..... ${STOPCOLOR}
 sudo purge
 echo ${GREEN} Done. ${STOPCOLOR}
-say "Mac Janitor has completed maintenance on your Mac, you can now quit the application"
+
+#SOFTWARE UPDATE CHECK
+echo ${YELLOW} System Update Check! ${STOPCOLOR}
+sudo softwareupdate -l
+echo -n "Did you see updates? Need to Apply? Yes to Apply , No to Continue with NO Updating "
+read answer
+if echo "$answer" | grep -iq "^y" ;then
+echo Updates will be applied!!!
+sleep 4s
+sudo softwareupdate -r
+else
+echo Continuing....
+sleep 3s
+say "Mac Janitor has completed maintenance on your Mac"
 echo ${BLUE} Finished the whole maintenance process. ${STOPCOLOR}
+echo Will will need to reboot. REBOOTING NOW!
+sudo reboot
+fi
+
