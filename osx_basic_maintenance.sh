@@ -127,7 +127,7 @@ read answer
 if echo "$answer" | grep -iq "^y" ;then
 echo Updates will be applied!!!
 sleep 4s
-sudo softwareupdate -r
+sudo softwareupdate -i -r
 else
 echo Continuing....
 sleep 3s
