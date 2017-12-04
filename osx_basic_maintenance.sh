@@ -1,16 +1,35 @@
 #!/bin/bash
 
 ######################################################################################
-# This script does some basic maintenance operations on Mac OS X (almost any version)#
-#     v2.1 		     #
+# This script does some  maintenance operations on Mac OS X (10.11 and greater)#
+#     v2.2 		 Rudolph Build    #
+## SOURCE https://github.com/djdarien/MacJanitor/tree/rudolph   ####
 ######################################################################################
+
+
 #lets check your Mac OS version
+echo OS System Version Check
+echo Version checking...............
+sleep 1s
 if [[ ${OSTYPE:6} -ge 15 ]]; then
     echo "Your Mac OS version is atleast 10.11, App will continue";
 else
     echo "You have an INCOMPATIBLE Mac OS version! App will quit";
     sleep 3s
     exit
+fi
+
+## START
+
+echo -n "Would you like to run Mac Janitor?? Otherwise 'N' for No to quit & cancel!! "
+read answer
+if echo "$answer" | grep -iq "^y" ;then
+echo Continuing! ... Running Mac Janitor!
+sleep 3s
+else
+echo Canceled! EXITING NOW!!!
+sleep 3s
+exit
 fi
 
 
@@ -44,7 +63,26 @@ defaults write com.apple.dock expose-animation-duration -float 0.1
 # Disable animations when you open an application from the Dock.
 defaults write com.apple.dock launchanim -bool false
 #reduce transparancy within menus and windows
-echo ${GREEN} Done. ${STOPCOLOR}
+######
+
+#Disable Sudden Motion Sensor
+echo -n "Is this Mac using an SSD? If yes lets optimize. Otherwise 'N' for No to continue!! "
+read answer
+if echo "$answer" | grep -iq "^y" ;then
+echo  Disabling Sudden Motion Sensor.......
+sleep 4s
+sudo pmset -a sms 0
+else
+echo Continuing....
+sleep 3s
+echo ${GREEN} Continuing onto next part!!${STOPCOLOR}
+fi
+
+#Clear DNS Cache
+echo ${YELLOW} Clearing DNS cache... ${STOPCOLOR}
+sudo dscacheutil -flushcache && \
+sudo killall -HUP mDNSResponder
+echo ${GREEN} DNS Cache cleared!! ${STOPCOLOR}
 
 # Clears font cache
 echo ${YELLOW} Clearing font cache... ${STOPCOLOR}
@@ -80,5 +118,27 @@ echo ${GREEN} Done. ${STOPCOLOR}
 echo ${YELLOW} Clearing RAM Cache..... ${STOPCOLOR}
 sudo purge
 echo ${GREEN} Done. ${STOPCOLOR}
-say "Mac Janitor has completed maintenance on your Mac, you can now quit the application"
+
+#SOFTWARE UPDATE CHECK
+echo ${YELLOW} System Update Check! ${STOPCOLOR}
+sudo softwareupdate -l
+echo -n "Did you see updates? Need to Apply? Yes to Apply , No to Continue with NO Updating "
+read answer
+if echo "$answer" | grep -iq "^y" ;then
+echo Updates will be applied!!!
+sleep 4s
+sudo softwareupdate -i -r
+else
+echo Continuing....
+sleep 3s
+say "Mac Janitor has completed maintenance on your Mac"
 echo ${BLUE} Finished the whole maintenance process. ${STOPCOLOR}
+say System Needs to restart!
+echo Will will need to reboot. REBOOTING in 10 SECONDS!
+echo .....
+echo ..........
+echo  ...............
+sleep 10s
+sudo reboot
+fi
+
