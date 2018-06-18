@@ -2,8 +2,7 @@
 
 ######################################################################################
 # This script does some  maintenance operations on Mac OS X (10.11 and greater)#
-#     v2.2 		 Rudolph Build    #
-## SOURCE https://github.com/djdarien/MacJanitor/tree/rudolph   ####
+#     v2.9 		 Summer Build    #
 ######################################################################################
 
 
@@ -77,6 +76,11 @@ echo Continuing....
 sleep 3s
 echo ${GREEN} Continuing onto next part!!${STOPCOLOR}
 fi
+
+# Clears Quick look cache 
+echo ${YELLOW} Clearing Quick Look cache... ${STOPCOLOR}
+rm -rf $TMPDIR/../C/com.apple.QuickLook.thumbnailcache
+echo ${GREEN} Quick Look Cache cleared!! ${STOPCOLOR}
 
 #Clear DNS Cache
 echo ${YELLOW} Clearing DNS cache... ${STOPCOLOR}
