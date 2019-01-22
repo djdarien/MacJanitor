@@ -123,17 +123,7 @@ echo ${YELLOW} Clearing RAM Cache..... ${STOPCOLOR}
 sudo purge
 echo ${GREEN} Done. ${STOPCOLOR}
 
-#SOFTWARE UPDATE CHECK
-echo ${YELLOW} System Update Check! ${STOPCOLOR}
-sudo softwareupdate -l
-echo -n "Did you see updates? Need to Apply? Yes to Apply , No to Continue with NO Updating "
-read answer
-if echo "$answer" | grep -iq "^y" ;then
-echo Updates will be applied!!!
-sleep 4s
-sudo softwareupdate -i -r
-else
-echo Continuing....
+
 sleep 3s
 say "Mac Janitor has completed maintenance on your Mac"
 echo ${BLUE} Finished the whole maintenance process. ${STOPCOLOR}
