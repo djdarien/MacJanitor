@@ -2,7 +2,7 @@
 
 ######################################################################################
 # This script does some  maintenance operations on Mac OS X (10.11 and greater)#
-#     v2.9 		 Summer Build    #
+#     v2.9.1 		 2019 Build    #
 ######################################################################################
 
 
@@ -61,21 +61,19 @@ sudo defaults write com.apple.finder DisableAllAnimations -bool true
 defaults write com.apple.dock expose-animation-duration -float 0.1
 # Disable animations when you open an application from the Dock.
 defaults write com.apple.dock launchanim -bool false
-#reduce transparancy within menus and windows
-######
 
 #Disable Sudden Motion Sensor
-echo -n "Is this Mac using an SSD? If yes lets optimize. Otherwise 'N' for No to continue!! "
-read answer
-if echo "$answer" | grep -iq "^y" ;then
-echo  Disabling Sudden Motion Sensor.......
+#echo -n "Is this Mac using an SSD? If yes lets optimize. Otherwise 'N' for No to continue!! "
+#read answer
+#if echo "$answer" | grep -iq "^y" ;then
+#echo  Disabling Sudden Motion Sensor.......
 sleep 4s
-sudo pmset -a sms 0
-else
+#sudo pmset -a sms 0
+#else
 echo Continuing....
-sleep 3s
-echo ${GREEN} Continuing onto next part!!${STOPCOLOR}
-fi
+#sleep 3s
+#echo ${GREEN} Continuing onto next part!!${STOPCOLOR}
+#fi
 
 # Clears Quick look cache 
 echo ${YELLOW} Clearing Quick Look cache... ${STOPCOLOR}
