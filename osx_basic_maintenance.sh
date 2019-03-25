@@ -62,18 +62,10 @@ defaults write com.apple.dock expose-animation-duration -float 0.1
 # Disable animations when you open an application from the Dock.
 defaults write com.apple.dock launchanim -bool false
 
-#Disable Sudden Motion Sensor
-#echo -n "Is this Mac using an SSD? If yes lets optimize. Otherwise 'N' for No to continue!! "
-#read answer
-#if echo "$answer" | grep -iq "^y" ;then
-#echo  Disabling Sudden Motion Sensor.......
+
 sleep 4s
-#sudo pmset -a sms 0
-#else
-echo Continuing....
-#sleep 3s
-#echo ${GREEN} Continuing onto next part!!${STOPCOLOR}
-#fi
+echo ${GREEN} OS Optimization done, continuing onwards! .....${STOPCOLOR}
+
 
 # Clears Quick look cache 
 echo ${YELLOW} Clearing Quick Look cache... ${STOPCOLOR}
