@@ -2,10 +2,12 @@
 
 ######################################################################################
 # This script does some  maintenance operations on Mac OS X (10.11 and greater)#
-#     v2.9.1 		 2019 Build    #
+#     v2.9 		Spring Fling 2019 Build    #
 ######################################################################################
 
-
+Echo Mac Janitor by Darien Entwistle
+echo  v2.9 - Spring Fling build
+sleep 1s
 #lets check your Mac OS version
 echo OS System Version Check
 echo Version checking...............
