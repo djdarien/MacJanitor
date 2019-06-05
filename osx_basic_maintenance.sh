@@ -5,7 +5,7 @@
 #     v2.9 		Spring Fling 2019 Build    #
 ######################################################################################
 
-Echo Mac Janitor by Darien Entwistle
+echo Mac Janitor by Darien Entwistle
 echo  v2.9 - Spring Fling build
 sleep 1s
 #lets check your Mac OS version
@@ -69,7 +69,7 @@ sleep 4s
 echo ${GREEN} OS Optimization done, continuing onwards! .....${STOPCOLOR}
 
 
-# Clears Quick look cache 
+# Clears Quick look cache
 echo ${YELLOW} Clearing Quick Look cache... ${STOPCOLOR}
 rm -rf $TMPDIR/../C/com.apple.QuickLook.thumbnailcache
 echo ${GREEN} Quick Look Cache cleared!! ${STOPCOLOR}
@@ -127,4 +127,3 @@ echo  ...............
 sleep 10s
 sudo reboot
 fi
-
