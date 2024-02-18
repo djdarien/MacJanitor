@@ -3,13 +3,13 @@ Mac Janitor is maintenance application that cleans your Mac in ways other progra
 
 It performs alot of maintenace that Mac OS does not on a regular basis. 
 Such as :
-Clear Safari caches
-Clear system caches
-Clear user caches
-Clear Quick Look
-Empy Trash Bin
-Disk repair
-and much more! 
+*Clear Safari caches
+*Clear system caches
+*Clear user caches
+*Clear Quick Look
+*Empty Trash Bin
+*Disk repair
+.......and much more! 
 
 
 <h2><br>How To Run</br></h2>
