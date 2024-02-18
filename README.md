@@ -1,12 +1,23 @@
 # MacJanitor
-Mac Janitor is maintenance application that cleans your Mac in ways other programs have failed todo! It is guaranteed to have your Mac running even by few short hairs better! 
+Mac Janitor is maintenance application that cleans your Mac in ways other programs have failed todo! It is guaranteed to have your Mac running even by few short hairs better!  
+
+It performs alot of maintenace that Mac OS does not on a regular basis. 
+Such as :
+Clear Safari caches
+Clear system caches
+Clear user caches
+Clear Quick Look
+Empy Trash Bin
+Disk repair
+and much more! 
+
 
 <h2><br>How To Run</br></h2>
 Simply run the script in your terminal by using "sh"
 
 example:
 
-sudo Downloads/osx_basic_maintenance.sh
+sudo Downloads/mac_janitor.sh
 
 
 <h3>DISCLAIMER</h3>
