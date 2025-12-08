@@ -1,0 +1,11 @@
+/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/App/ContentView.swift
+/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/App/MacJanitorApp.swift
+/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Models/MaintenanceTask.swift
+/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Models/SystemInfo.swift
+/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Services/MaintenanceManager.swift
+/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Services/ShellExecutor.swift
+/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Services/SystemProfiler.swift
+/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Views/Components/AlertManager.swift
+/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Views/Dashboard/DashboardView.swift
+/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Views/Maintenance/MaintenanceView.swift
+/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Views/Settings/SettingsView.swift
