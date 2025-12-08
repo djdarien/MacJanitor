@@ -1,0 +1,431 @@
+{
+  "builtTestProducts" : [
+
+  ],
+  "copyCommands" : {
+
+  },
+  "explicitTargetDependencyImportCheckingMode" : {
+    "none" : {
+
+    }
+  },
+  "generatedSourceTargetSet" : [
+
+  ],
+  "pluginDescriptions" : [
+
+  ],
+  "swiftCommands" : {
+    "C.MacJanitorV2-arm64-apple-macosx26.0-debug.module" : {
+      "executable" : "/Library/Developer/CommandLineTools/usr/bin/swiftc",
+      "fileList" : "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/sources",
+      "importPath" : "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/App/ContentView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/App/MacJanitorApp.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Models/MaintenanceTask.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Models/SystemInfo.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Services/MaintenanceManager.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Services/ShellExecutor.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Services/SystemProfiler.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Views/Components/AlertManager.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Views/Dashboard/DashboardView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Views/Maintenance/MaintenanceView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Views/Settings/SettingsView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/sources"
+        }
+      ],
+      "isLibrary" : false,
+      "moduleName" : "MacJanitorV2",
+      "moduleOutputPath" : "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/Modules/MacJanitorV2.swiftmodule",
+      "objects" : [
+        "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/ContentView.swift.o",
+        "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MacJanitorApp.swift.o",
+        "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MaintenanceTask.swift.o",
+        "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/SystemInfo.swift.o",
+        "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MaintenanceManager.swift.o",
+        "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/ShellExecutor.swift.o",
+        "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/SystemProfiler.swift.o",
+        "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/AlertManager.swift.o",
+        "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/DashboardView.swift.o",
+        "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MaintenanceView.swift.o",
+        "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/SettingsView.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx12.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j10",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-Xfrontend",
+        "-entry-point-function-name",
+        "-Xfrontend",
+        "MacJanitorV2_main",
+        "-color-diagnostics",
+        "-swift-version",
+        "5",
+        "-I",
+        "/Library/Developer/CommandLineTools/Library/Developer/Frameworks",
+        "-L",
+        "/Library/Developer/CommandLineTools/Library/Developer/Frameworks",
+        "-plugin-path",
+        "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "untitled"
+      ],
+      "outputFileMapPath" : "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/ContentView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MacJanitorApp.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MaintenanceTask.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/SystemInfo.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MaintenanceManager.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/ShellExecutor.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/SystemProfiler.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/AlertManager.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/DashboardView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MaintenanceView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/SettingsView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/Modules/MacJanitorV2.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/App/ContentView.swift",
+        "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/App/MacJanitorApp.swift",
+        "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Models/MaintenanceTask.swift",
+        "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Models/SystemInfo.swift",
+        "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Services/MaintenanceManager.swift",
+        "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Services/ShellExecutor.swift",
+        "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Services/SystemProfiler.swift",
+        "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Views/Components/AlertManager.swift",
+        "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Views/Dashboard/DashboardView.swift",
+        "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Views/Maintenance/MaintenanceView.swift",
+        "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Views/Settings/SettingsView.swift"
+      ],
+      "tempsPath" : "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build",
+      "wholeModuleOptimization" : false
+    }
+  },
+  "swiftFrontendCommands" : {
+
+  },
+  "swiftTargetScanArgs" : {
+    "MacJanitorV2" : [
+      "/Library/Developer/CommandLineTools/usr/bin/swiftc",
+      "-module-name",
+      "MacJanitorV2",
+      "-package-name",
+      "untitled",
+      "-c",
+      "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/App/ContentView.swift",
+      "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/App/MacJanitorApp.swift",
+      "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Models/MaintenanceTask.swift",
+      "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Models/SystemInfo.swift",
+      "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Services/MaintenanceManager.swift",
+      "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Services/ShellExecutor.swift",
+      "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Services/SystemProfiler.swift",
+      "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Views/Components/AlertManager.swift",
+      "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Views/Dashboard/DashboardView.swift",
+      "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Views/Maintenance/MaintenanceView.swift",
+      "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Views/Settings/SettingsView.swift",
+      "-I",
+      "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx12.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j10",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-Xfrontend",
+      "-entry-point-function-name",
+      "-Xfrontend",
+      "MacJanitorV2_main",
+      "-color-diagnostics",
+      "-swift-version",
+      "5",
+      "-I",
+      "/Library/Developer/CommandLineTools/Library/Developer/Frameworks",
+      "-L",
+      "/Library/Developer/CommandLineTools/Library/Developer/Frameworks",
+      "-plugin-path",
+      "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "untitled",
+      "-driver-use-frontend-path",
+      "/Library/Developer/CommandLineTools/usr/bin/swiftc"
+    ]
+  },
+  "targetDependencyMap" : {
+    "MacJanitorV2" : [
+
+    ]
+  },
+  "testDiscoveryCommands" : {
+
+  },
+  "testEntryPointCommands" : {
+
+  },
+  "traitConfiguration" : {
+    "default" : {
+
+    }
+  },
+  "writeCommands" : {
+    "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2-entitlement.plist" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<entitlement-plist>"
+        },
+        {
+          "kind" : "virtual",
+          "name" : "<com.apple.security.get-task-allow>"
+        }
+      ],
+      "outputFilePath" : "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2-entitlement.plist"
+    },
+    "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/App/ContentView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/App/MacJanitorApp.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Models/MaintenanceTask.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Models/SystemInfo.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Services/MaintenanceManager.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Services/ShellExecutor.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Services/SystemProfiler.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Views/Components/AlertManager.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Views/Dashboard/DashboardView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Views/Maintenance/MaintenanceView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Views/Settings/SettingsView.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/sources"
+    },
+    "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.product/Objects.LinkFileList" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/AlertManager.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/ContentView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/DashboardView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MacJanitorApp.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MaintenanceManager.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MaintenanceTask.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MaintenanceView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/SettingsView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/ShellExecutor.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/SystemInfo.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/SystemProfiler.swift.o"
+        }
+      ],
+      "outputFilePath" : "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.product/Objects.LinkFileList"
+    },
+    "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt" : {
+      "alwaysOutOfDate" : true,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<swift-get-version>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Library/Developer/CommandLineTools/usr/bin/swiftc"
+        }
+      ],
+      "outputFilePath" : "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt"
+    }
+  }
+}

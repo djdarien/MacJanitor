@@ -1,0 +1,81 @@
+client:
+  name: basic
+  file-system: device-agnostic
+tools: {}
+targets:
+  "MacJanitorV2-arm64-apple-macosx26.0-debug.exe": ["<MacJanitorV2-arm64-apple-macosx26.0-debug.exe>"]
+  "MacJanitorV2-arm64-apple-macosx26.0-debug.module": ["<MacJanitorV2-arm64-apple-macosx26.0-debug.module>"]
+  "PackageStructure": ["<PackageStructure>"]
+  "main": ["<MacJanitorV2-arm64-apple-macosx26.0-debug.exe>","<MacJanitorV2-arm64-apple-macosx26.0-debug.module>"]
+  "test": ["<MacJanitorV2-arm64-apple-macosx26.0-debug.exe>","<MacJanitorV2-arm64-apple-macosx26.0-debug.module>"]
+default: "main"
+nodes:
+  "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+  "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2":
+    is-mutated: true
+commands:
+  "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2-entitlement.plist":
+    tool: write-auxiliary-file
+    inputs: ["<entitlement-plist>","<com.apple.security.get-task-allow>"]
+    outputs: ["/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2-entitlement.plist"]
+    description: "Write auxiliary file /Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2-entitlement.plist"
+
+  "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/App/ContentView.swift","/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/App/MacJanitorApp.swift","/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Models/MaintenanceTask.swift","/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Models/SystemInfo.swift","/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Services/MaintenanceManager.swift","/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Services/ShellExecutor.swift","/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Services/SystemProfiler.swift","/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Views/Components/AlertManager.swift","/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Views/Dashboard/DashboardView.swift","/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Views/Maintenance/MaintenanceView.swift","/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Views/Settings/SettingsView.swift"]
+    outputs: ["/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/sources"]
+    description: "Write auxiliary file /Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/sources"
+
+  "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.product/Objects.LinkFileList":
+    tool: write-auxiliary-file
+    inputs: ["<link-file-list>","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/AlertManager.swift.o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/ContentView.swift.o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/DashboardView.swift.o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MacJanitorApp.swift.o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MaintenanceManager.swift.o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MaintenanceTask.swift.o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MaintenanceView.swift.o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/SettingsView.swift.o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/ShellExecutor.swift.o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/SystemInfo.swift.o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/SystemProfiler.swift.o"]
+    outputs: ["/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.product/Objects.LinkFileList"]
+    description: "Write auxiliary file /Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.product/Objects.LinkFileList"
+
+  "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt":
+    tool: write-auxiliary-file
+    inputs: ["<swift-get-version>","/Library/Developer/CommandLineTools/usr/bin/swiftc"]
+    outputs: ["/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt"]
+    always-out-of-date: "true"
+    description: "Write auxiliary file /Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt"
+
+  "<MacJanitorV2-arm64-apple-macosx26.0-debug.exe>":
+    tool: phony
+    inputs: ["<MacJanitorV2-arm64-apple-macosx26.0-debug.exe-CodeSigning>"]
+    outputs: ["<MacJanitorV2-arm64-apple-macosx26.0-debug.exe>"]
+
+  "<MacJanitorV2-arm64-apple-macosx26.0-debug.module>":
+    tool: phony
+    inputs: ["/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/ContentView.swift.o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MacJanitorApp.swift.o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MaintenanceTask.swift.o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/SystemInfo.swift.o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MaintenanceManager.swift.o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/ShellExecutor.swift.o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/SystemProfiler.swift.o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/AlertManager.swift.o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/DashboardView.swift.o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MaintenanceView.swift.o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/SettingsView.swift.o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/Modules/MacJanitorV2.swiftmodule"]
+    outputs: ["<MacJanitorV2-arm64-apple-macosx26.0-debug.module>"]
+
+  "C.MacJanitorV2-arm64-apple-macosx26.0-debug.exe":
+    tool: shell
+    inputs: ["/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/AlertManager.swift.o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/ContentView.swift.o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/DashboardView.swift.o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MacJanitorApp.swift.o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MaintenanceManager.swift.o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MaintenanceTask.swift.o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MaintenanceView.swift.o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/SettingsView.swift.o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/ShellExecutor.swift.o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/SystemInfo.swift.o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/SystemProfiler.swift.o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.product/Objects.LinkFileList"]
+    outputs: ["/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2"]
+    description: "Linking ./.build/arm64-apple-macosx/debug/MacJanitorV2"
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-L","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug","-o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2","-module-name","MacJanitorV2","-Xlinker","-no_warn_duplicate_libraries","-emit-executable","-Xlinker","-alias","-Xlinker","_MacJanitorV2_main","-Xlinker","_main","-Xlinker","-rpath","-Xlinker","@loader_path","@/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.product/Objects.LinkFileList","-Xlinker","-rpath","-Xlinker","/Library/Developer/CommandLineTools/usr/lib/swift-6.2/macosx","-target","arm64-apple-macosx12.0","-Xlinker","-add_ast_path","-Xlinker","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/Modules/MacJanitorV2.swiftmodule","-I","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-L","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-plugin-path","/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g"]
+
+  "C.MacJanitorV2-arm64-apple-macosx26.0-debug.exe-entitlements":
+    tool: shell
+    inputs: ["/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2-entitlement.plist"]
+    outputs: ["<MacJanitorV2-arm64-apple-macosx26.0-debug.exe-CodeSigning>"]
+    description: "Applying debug entitlements to ./.build/arm64-apple-macosx/debug/MacJanitorV2"
+    args: ["codesign","--force","--sign","-","--entitlements","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2-entitlement.plist","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2"]
+
+  "C.MacJanitorV2-arm64-apple-macosx26.0-debug.module":
+    tool: shell
+    inputs: ["/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/App/ContentView.swift","/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/App/MacJanitorApp.swift","/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Models/MaintenanceTask.swift","/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Models/SystemInfo.swift","/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Services/MaintenanceManager.swift","/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Services/ShellExecutor.swift","/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Services/SystemProfiler.swift","/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Views/Components/AlertManager.swift","/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Views/Dashboard/DashboardView.swift","/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Views/Maintenance/MaintenanceView.swift","/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Views/Settings/SettingsView.swift","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/sources"]
+    outputs: ["/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/ContentView.swift.o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MacJanitorApp.swift.o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MaintenanceTask.swift.o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/SystemInfo.swift.o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MaintenanceManager.swift.o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/ShellExecutor.swift.o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/SystemProfiler.swift.o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/AlertManager.swift.o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/DashboardView.swift.o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MaintenanceView.swift.o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/SettingsView.swift.o","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/Modules/MacJanitorV2.swiftmodule"]
+    description: "Compiling Swift Module 'MacJanitorV2' (11 sources)"
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-module-name","MacJanitorV2","-emit-dependencies","-emit-module","-emit-module-path","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/Modules/MacJanitorV2.swiftmodule","-output-file-map","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/output-file-map.json","-incremental","-c","@/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/sources","-I","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx12.0","-incremental","-enable-batch-mode","-serialize-diagnostics","-index-store-path","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-j10","-DSWIFT_PACKAGE","-DDEBUG","-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE","-module-cache-path","/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-Xfrontend","-entry-point-function-name","-Xfrontend","MacJanitorV2_main","-color-diagnostics","-swift-version","5","-I","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-L","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-plugin-path","/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xcc","-isysroot","-Xcc","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-Xcc","-fPIC","-Xcc","-g","-package-name","untitled"]
+
+  "PackageStructure":
+    tool: package-structure-tool
+    inputs: ["/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/","/Users/darienentwistle/MacJanitor-v2/Untitled/Package.swift","/Users/darienentwistle/MacJanitor-v2/Untitled/Package.resolved"]
+    outputs: ["<PackageStructure>"]
+    description: "Planning build"
+    allow-missing-inputs: true
+

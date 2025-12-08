@@ -1,0 +1,82 @@
+{
+  "": {
+    "swift-dependencies": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/master.swiftdeps"
+  },
+  "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/App/ContentView.swift": {
+    "dependencies": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/ContentView.d",
+    "object": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/ContentView.swift.o",
+    "swiftmodule": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/ContentView~partial.swiftmodule",
+    "swift-dependencies": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/ContentView.swiftdeps",
+    "diagnostics": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/ContentView.dia"
+  },
+  "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/App/MacJanitorApp.swift": {
+    "dependencies": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MacJanitorApp.d",
+    "object": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MacJanitorApp.swift.o",
+    "swiftmodule": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MacJanitorApp~partial.swiftmodule",
+    "swift-dependencies": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MacJanitorApp.swiftdeps",
+    "diagnostics": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MacJanitorApp.dia"
+  },
+  "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Models/MaintenanceTask.swift": {
+    "dependencies": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MaintenanceTask.d",
+    "object": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MaintenanceTask.swift.o",
+    "swiftmodule": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MaintenanceTask~partial.swiftmodule",
+    "swift-dependencies": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MaintenanceTask.swiftdeps",
+    "diagnostics": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MaintenanceTask.dia"
+  },
+  "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Models/SystemInfo.swift": {
+    "dependencies": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/SystemInfo.d",
+    "object": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/SystemInfo.swift.o",
+    "swiftmodule": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/SystemInfo~partial.swiftmodule",
+    "swift-dependencies": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/SystemInfo.swiftdeps",
+    "diagnostics": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/SystemInfo.dia"
+  },
+  "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Services/MaintenanceManager.swift": {
+    "dependencies": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MaintenanceManager.d",
+    "object": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MaintenanceManager.swift.o",
+    "swiftmodule": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MaintenanceManager~partial.swiftmodule",
+    "swift-dependencies": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MaintenanceManager.swiftdeps",
+    "diagnostics": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MaintenanceManager.dia"
+  },
+  "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Services/ShellExecutor.swift": {
+    "dependencies": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/ShellExecutor.d",
+    "object": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/ShellExecutor.swift.o",
+    "swiftmodule": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/ShellExecutor~partial.swiftmodule",
+    "swift-dependencies": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/ShellExecutor.swiftdeps",
+    "diagnostics": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/ShellExecutor.dia"
+  },
+  "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Services/SystemProfiler.swift": {
+    "dependencies": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/SystemProfiler.d",
+    "object": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/SystemProfiler.swift.o",
+    "swiftmodule": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/SystemProfiler~partial.swiftmodule",
+    "swift-dependencies": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/SystemProfiler.swiftdeps",
+    "diagnostics": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/SystemProfiler.dia"
+  },
+  "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Views/Components/AlertManager.swift": {
+    "dependencies": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/AlertManager.d",
+    "object": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/AlertManager.swift.o",
+    "swiftmodule": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/AlertManager~partial.swiftmodule",
+    "swift-dependencies": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/AlertManager.swiftdeps",
+    "diagnostics": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/AlertManager.dia"
+  },
+  "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Views/Dashboard/DashboardView.swift": {
+    "dependencies": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/DashboardView.d",
+    "object": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/DashboardView.swift.o",
+    "swiftmodule": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/DashboardView~partial.swiftmodule",
+    "swift-dependencies": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/DashboardView.swiftdeps",
+    "diagnostics": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/DashboardView.dia"
+  },
+  "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Views/Maintenance/MaintenanceView.swift": {
+    "dependencies": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MaintenanceView.d",
+    "object": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MaintenanceView.swift.o",
+    "swiftmodule": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MaintenanceView~partial.swiftmodule",
+    "swift-dependencies": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MaintenanceView.swiftdeps",
+    "diagnostics": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/MaintenanceView.dia"
+  },
+  "/Users/darienentwistle/MacJanitor-v2/Untitled/Sources/MacJanitor/Views/Settings/SettingsView.swift": {
+    "dependencies": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/SettingsView.d",
+    "object": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/SettingsView.swift.o",
+    "swiftmodule": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/SettingsView~partial.swiftmodule",
+    "swift-dependencies": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/SettingsView.swiftdeps",
+    "diagnostics": "/Users/darienentwistle/MacJanitor-v2/Untitled/.build/arm64-apple-macosx/debug/MacJanitorV2.build/SettingsView.dia"
+  }
+}
