@@ -1,4 +1,4 @@
-# Mac Janitor v5.0
+# Mac Janitor v6.0
 
 A modern, safe, and robust macOS maintenance application with a beautiful SwiftUI GUI.
 
