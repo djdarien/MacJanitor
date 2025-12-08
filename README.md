@@ -1,30 +1,48 @@
-# MacJanitor
-Mac Janitor is maintenance application that cleans your Mac in ways other programs have failed todo! It is guaranteed to have your Mac running even by few short hairs better!  
+# Mac Janitor v5.0
 
-It performs alot of maintenace that Mac OS does not on a regular basis. 
-Such as :
-*Clear Safari caches
-*Clear system caches
-*Clear user caches
-*Clear Quick Look
-*Empty Trash Bin
-*Disk repair
-.......and much more! 
+A modern, safe, and robust macOS maintenance application with a beautiful SwiftUI GUI.
 
+## Features
 
-<h2><br>How To Run</br></h2>
-Simply run the script in your terminal by using "sh"
+- **Modern macOS Compatibility**: Supports macOS 12+ (Monterey through Sequoia)
+- **Apple Silicon & Intel**: Works on both Intel and Apple Silicon Macs
+- **Beautiful GUI**: SwiftUI interface with progress bars and alerts
+- **Safety First**: Automatic backups and rollback capabilities
+- **Smart Maintenance**: Updated commands for modern macOS systems
+- **Real-time Progress**: Live progress tracking and status updates
+- **Scheduled Operations**: Background maintenance with scheduling
 
-example:
+## Requirements
 
-sudo Downloads/mac_janitor.sh
+- macOS 12.0 or later
+- Administrator privileges
+- 100MB free disk space
 
+## Installation
 
-<h3>DISCLAIMER</h3>
+1. Download the latest release
+2. Move MacJanitor.app to your Applications folder
+3. Launch the app and grant administrator permissions when prompted
 
-There is no gurantees that this program will clean your Mac to what you are expecting. There is also no guarantees that this wont cause any issues to your system & or Mac itself. However the script has been tested many times in business enviroment with no production impact. 
+## Usage
 
+1. Open Mac Janitor
+2. Review your system status on the dashboard
+3. Select the maintenance tasks you want to perform
+4. Click "Start Maintenance" and monitor progress
+5. Review the results and any recommendations
 
+## Safety Features
 
+- Automatic backup before any system changes
+- Rollback capability for critical modifications
+- Validation layer for all operations
+- Error recovery with user-friendly messages
 
+## Support
 
+For issues and feature requests, please visit our GitHub repository.
+
+## License
+
+MIT License - see LICENSE file for details.
