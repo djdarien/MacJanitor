@@ -8,9 +8,11 @@ class MaintenanceManager: ObservableObject {
     @Published var overallProgress: Double = 0.0
     @Published var currentTaskDescription: String = "Ready to start"
     @Published var requiresReboot = false
+    @Published var operationLogger = OperationLogger()
     
     private var taskQueue: [MaintenanceTask] = []
     private var currentTaskIndex = 0
+    private var taskStartTime: Date?
     
     func startMaintenance() {
         guard !isRunning else { return }
@@ -52,9 +54,11 @@ class MaintenanceManager: ObservableObject {
         if let taskIndex = tasks.firstIndex(where: { $0.type == task.type }) {
             tasks[taskIndex].status = .running
             currentTaskDescription = task.type.description
+            taskStartTime = Date()
             
             Task {
-                let result = await executeTask(tasks[taskIndex].type)
+                let (result, output, command) = await self.executeTaskWithOutput(self.tasks[taskIndex].type)
+                let duration = Date().timeIntervalSince(self.taskStartTime ?? Date())
                 
                 DispatchQueue.main.async {
                     self.tasks[taskIndex].status = result ? .completed : .failed
@@ -63,6 +67,14 @@ class MaintenanceManager: ObservableObject {
                     if result && self.tasks[taskIndex].type.requiresReboot {
                         self.requiresReboot = true
                     }
+                    
+                    self.operationLogger.logTask(
+                        task: self.tasks[taskIndex].type.rawValue,
+                        command: command,
+                        output: output ?? "No output",
+                        success: result,
+                        duration: duration
+                    )
                     
                     self.currentTaskIndex += 1
                     self.overallProgress = Double(self.currentTaskIndex) / Double(self.taskQueue.count)
@@ -81,7 +93,7 @@ class MaintenanceManager: ObservableObject {
         }
     }
     
-    private func executeTask(_ type: MaintenanceTaskType) async -> Bool {
+    private func executeTaskWithOutput(_ type: MaintenanceTaskType) async -> (Bool, String?, String) {
         let command: String
         switch type {
         case .cacheCleanup:
@@ -93,27 +105,64 @@ class MaintenanceManager: ObservableObject {
         case .dnsFlush:
             command = "dscacheutil -flushcache && killall -HUP mDNSResponder"
         case .fontCacheCleanup:
-            command = "echo 'Font cache cleanup requires admin privileges - skipped'"
+            command = "atsutil databases -remove"
         case .logCleanup:
-            command = "echo 'Log cleanup requires admin privileges - skipped'"
+            command = """
+            /usr/bin/find /var/log -type f \\( -name "*.log" -o -name "*.gz" -o -name "*.old" \\) -mtime +7 -delete 2>/dev/null; 
+            echo "Logs older than 7 days cleaned"
+            """
         case .trashEmpty:
-            command = "rm -rf ~/.Trash/*"
+            command = """
+            /usr/bin/find ~/.Trash -maxdepth 1 -not -path ~/.Trash -delete 2>/dev/null; 
+            for volume in /Volumes/*; do 
+                if [ -d "$volume/.Trashed" ]; then 
+                    /usr/bin/find "$volume/.Trashed" -maxdepth 1 -not -path "$volume/.Trashed" -delete 2>/dev/null; 
+                fi; 
+            done; 
+            echo "Trash emptied on all volumes"
+            """
         case .memoryPurge:
-            command = "echo 'Memory purge requires admin privileges - skipped'"
+            command = "purge"
         case .safariCleanup:
             command = "rm -rf ~/Library/Caches/com.apple.Safari/* && rm -rf ~/Library/Caches/Metadata/Safari/*"
         case .systemCacheCleanup:
-            command = "echo 'System cache cleanup requires admin privileges - skipped'"
+            command = """
+            /usr/bin/find /Library/Caches -type f -mtime +7 -delete 2>/dev/null; 
+            /usr/bin/find /Library/Caches -type d -empty -delete 2>/dev/null; 
+            echo "System caches older than 7 days cleaned"
+            """
         case .userCacheCleanup:
-            command = "rm -rf ~/Library/Caches/*"
+            command = """
+            /usr/bin/find ~/Library/Caches -type f -mtime +7 -delete 2>/dev/null; 
+            /usr/bin/find ~/Library/Caches -type d -empty -delete 2>/dev/null; 
+            echo "User caches older than 7 days cleaned"
+            """
+        case .timeMachineSnapshot:
+            command = """
+            if tmutil istimeMachineEnabled 2>/dev/null; then 
+                tmutil localsnapshot 2>/dev/null && echo "Time Machine snapshot created" || echo "Snapshot failed"; 
+            else 
+                echo "Time Machine not enabled"; 
+            fi
+            """
         }
-        
-        let (output, status) = await ShellExecutor.execute(command)
-        
+
+        let (output, status): (String?, Int32)
+        if type.requiresAdmin {
+            (output, status) = await AdminExecutor.execute(command)
+        } else {
+            (output, status) = await ShellExecutor.execute(command)
+        }
+
         if status != 0 {
             print("Error executing task \(type.rawValue): \(output ?? "Unknown error")")
         }
-        
-        return status == 0
+
+        return (status == 0, output, command)
+    }
+    
+    private func executeTask(_ type: MaintenanceTaskType) async -> Bool {
+        let (result, _, _) = await executeTaskWithOutput(type)
+        return result
     }
 }

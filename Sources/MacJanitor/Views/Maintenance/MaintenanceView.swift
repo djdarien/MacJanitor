@@ -2,6 +2,7 @@ import SwiftUI
 
 struct MaintenanceView: View {
     @EnvironmentObject var maintenanceManager: MaintenanceManager
+    @EnvironmentObject var systemProfiler: SystemProfiler
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -16,6 +17,9 @@ struct MaintenanceView: View {
             ActionButtons()
         }
         .padding()
+        .onAppear {
+            systemProfiler.checkTimeMachineStatus()
+        }
     }
 }
 
@@ -30,8 +34,15 @@ struct TaskList: View {
                         .font(.title2)
                         .frame(width: 30)
                     VStack(alignment: .leading) {
-                        Text(task.type.rawValue)
-                            .font(.headline)
+                        HStack {
+                            Text(task.type.rawValue)
+                                .font(.headline)
+                            if task.type.requiresAdmin {
+                                Image(systemName: "lock.fill")
+                                    .font(.caption)
+                                    .foregroundColor(.orange)
+                            }
+                        }
                         Text(task.type.description)
                             .font(.subheadline)
                             .foregroundColor(.secondary)
@@ -44,6 +55,7 @@ struct TaskList: View {
 
 struct StatusView: View {
     @EnvironmentObject var maintenanceManager: MaintenanceManager
+    @EnvironmentObject var systemProfiler: SystemProfiler
     
     var body: some View {
         VStack {
@@ -52,6 +64,17 @@ struct StatusView: View {
             Text(maintenanceManager.currentTaskDescription)
                 .font(.footnote)
                 .foregroundColor(.secondary)
+            
+            if systemProfiler.timeMachineEnabled {
+                HStack {
+                    Image(systemName: "time.timemachine")
+                        .foregroundColor(.green)
+                    Text("Time Machine enabled - snapshots will be created")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+                .padding(.top, 4)
+            }
         }
     }
 }
