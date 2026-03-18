@@ -1,6 +1,23 @@
 # MacJanitor Changelog
 
-## Version 2.0.0 (Current)
+## Version 2.1.0 (Current)
+
+### Changes
+- Added secure admin elevation for maintenance tasks that require privileges
+- Implemented AdminExecutor using macOS Authorization Services
+- Added visual indicators for admin-required tasks
+- Tasks now execute properly with appropriate permissions
+- Maintained dashboard functionality (no changes)
+
+### Technical Details
+- Created AdminExecutor.swift using NSAppleScript for privileged command execution
+- Added requiresAdmin property to MaintenanceTaskType
+- Updated MaintenanceManager to route tasks based on privilege requirements
+- Added lock icons for admin tasks in UI
+- Preserved user-level task execution via ShellExecutor
+- Build successful, app launches and maintenance tasks execute with proper permissions
+
+## Version 2.0.0
 
 ### Changes
 - Fixed dashboard not displaying system information (macOS version, disk space, etc.)

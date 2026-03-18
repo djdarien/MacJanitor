@@ -5,12 +5,23 @@ import IOKit.ps
 @MainActor
 class SystemProfiler: ObservableObject {
     @Published var systemInfo: SystemInfo = .default
+    @Published var timeMachineEnabled: Bool = false
     
     func refreshSystemInfo() {
+        checkTimeMachineStatus()
         Task {
             let info = await fetchSystemInfo()
             DispatchQueue.main.async {
                 self.systemInfo = info
+            }
+        }
+    }
+    
+    func checkTimeMachineStatus() {
+        Task {
+            let (output, status) = await ShellExecutor.execute("tmutil istimeMachineEnabled")
+            DispatchQueue.main.async {
+                self.timeMachineEnabled = (status == 0 && output?.contains("1") == true)
             }
         }
     }

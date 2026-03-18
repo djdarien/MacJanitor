@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var showingLogViewer = false
+    
     var body: some View {
         TabView {
             DashboardView()
@@ -19,5 +21,10 @@ struct ContentView: View {
                 }
         }
         .frame(minWidth: 700, minHeight: 400)
+        .keyboardShortcut("2", modifiers: [.command, .shift])
+        .sheet(isPresented: $showingLogViewer) {
+            LogViewerView()
+                .frame(width: 600, height: 500)
+        }
     }
 }

@@ -12,6 +12,7 @@ enum MaintenanceTaskType: String, CaseIterable, Identifiable, Codable {
     case safariCleanup = "Safari Cleanup"
     case systemCacheCleanup = "System Cache Cleanup"
     case userCacheCleanup = "User Cache Cleanup"
+    case timeMachineSnapshot = "Time Machine Snapshot"
     
     var id: String { rawValue }
     
@@ -39,6 +40,8 @@ enum MaintenanceTaskType: String, CaseIterable, Identifiable, Codable {
             return "Clear system-level caches"
         case .userCacheCleanup:
             return "Clear user-specific caches"
+        case .timeMachineSnapshot:
+            return "Create Time Machine snapshot before maintenance"
         }
     }
     
@@ -66,12 +69,23 @@ enum MaintenanceTaskType: String, CaseIterable, Identifiable, Codable {
             return "gear"
         case .userCacheCleanup:
             return "person.crop.circle"
+        case .timeMachineSnapshot:
+            return "time.timemachine"
         }
     }
     
     var requiresReboot: Bool {
         switch self {
         case .systemOptimization, .fontCacheCleanup:
+            return true
+        default:
+            return false
+        }
+    }
+
+    var requiresAdmin: Bool {
+        switch self {
+        case .systemOptimization, .diskMaintenance, .dnsFlush, .fontCacheCleanup, .logCleanup, .memoryPurge, .systemCacheCleanup, .timeMachineSnapshot:
             return true
         default:
             return false
@@ -102,6 +116,8 @@ enum MaintenanceTaskType: String, CaseIterable, Identifiable, Codable {
             return 25
         case .userCacheCleanup:
             return 20
+        case .timeMachineSnapshot:
+            return 30
         }
     }
 }
