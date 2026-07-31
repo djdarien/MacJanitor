@@ -1,34 +1,39 @@
 // swift-tools-version: 5.9
-// The swift-tools-version declares the minimum version of Swift required to build this package.
-
 import PackageDescription
 
 let package = Package(
-    name: "MacJanitorV2",
+    name: "MacJanitor",
     platforms: [
-        .macOS(.v12) // macOS 12+ (Monterey through Sequoia)
+        .macOS(.v12)
     ],
     products: [
         .executable(
-            name: "MacJanitorV2",
-            targets: ["MacJanitorV2"]
+            name: "MacJanitor",
+            targets: ["MacJanitor"]
+        ),
+        .library(
+            name: "MacJanitorCore",
+            targets: ["MacJanitorCore"]
         ),
     ],
-    dependencies: [
-        // Add any external dependencies here
-    ],
     targets: [
+        .target(
+            name: "MacJanitorCore",
+            path: "Sources/MacJanitorCore"
+        ),
         .executableTarget(
-            name: "MacJanitorV2",
-            dependencies: [],
-             path: "Sources/MacJanitor",
-             resources: [
-                 .process("Resources")
-             ]
+            name: "MacJanitor",
+            dependencies: ["MacJanitorCore"],
+            path: "Sources/MacJanitor",
+            exclude: [".DS_Store"],
+            linkerSettings: [
+                .linkedFramework("AppKit"),
+                .linkedFramework("IOKit"),
+            ]
         ),
         .testTarget(
             name: "MacJanitorTests",
-            dependencies: ["MacJanitorV2"],
+            dependencies: ["MacJanitorCore"],
             path: "Tests/MacJanitorTests"
         ),
     ]

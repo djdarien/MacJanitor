@@ -1,8 +1,8 @@
 import Foundation
 
-class OperationLogger: ObservableObject {
+final class OperationLogger: ObservableObject {
     @Published var entries: [LogEntry] = []
-    
+
     struct LogEntry: Identifiable {
         let id = UUID()
         let timestamp: Date
@@ -11,77 +11,96 @@ class OperationLogger: ObservableObject {
         let output: String
         let success: Bool
         let duration: TimeInterval
+        let freedBytes: Int64
     }
-    
+
     private let logDirectory: URL
-    
-    init() {
-        let logsPath = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask)[0]
-            .appendingPathComponent("Logs")
-            .appendingPathComponent("MacJanitor")
+    private let sessionLogFile: URL
+
+    init(logDirectory: URL? = nil) {
+        let logsPath: URL
+        if let logDirectory {
+            logsPath = logDirectory
+        } else {
+            logsPath = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask)[0]
+                .appendingPathComponent("Logs", isDirectory: true)
+                .appendingPathComponent("MacJanitor", isDirectory: true)
+        }
+
         try? FileManager.default.createDirectory(at: logsPath, withIntermediateDirectories: true)
-        logDirectory = logsPath
+        self.logDirectory = logsPath
+
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        let day = formatter.string(from: Date())
+        self.sessionLogFile = logsPath.appendingPathComponent("maintenance_\(day).log")
+
+        if !FileManager.default.fileExists(atPath: sessionLogFile.path) {
+            FileManager.default.createFile(atPath: sessionLogFile.path, contents: nil)
+        }
     }
-    
-    func logTask(task: String, command: String, output: String, success: Bool, duration: TimeInterval) {
+
+    func logTask(
+        task: String,
+        command: String,
+        output: String,
+        success: Bool,
+        duration: TimeInterval,
+        freedBytes: Int64 = 0
+    ) {
         let entry = LogEntry(
             timestamp: Date(),
             task: task,
             command: command,
             output: output,
             success: success,
-            duration: duration
+            duration: duration,
+            freedBytes: freedBytes
         )
-        
-        DispatchQueue.main.async {
-            self.entries.insert(entry, at: 0)
-        }
-        
+
+        entries.insert(entry, at: 0)
         saveLog(entry: entry)
     }
-    
+
     private func saveLog(entry: LogEntry) {
-        let logFile = logDirectory
-            .appendingPathComponent("maintenance_\(Date().ISO8601Format().colonReplacement("-")).log")
-        
-        let logLine = "[\(entry.timestamp.ISO8601Format())] \(entry.task): \(entry.success ? "SUCCESS" : "FAILED") - \(entry.duration)s\n\(entry.output)\n---\n"
-        
-        if var data = logLine.data(using: .utf8) {
-            try? data.append(to: logFile)
+        let freed = ByteCountFormatter.string(fromByteCount: entry.freedBytes, countStyle: .file)
+        let logLine = """
+        [\(entry.timestamp.ISO8601Format())] \(entry.task): \(entry.success ? "SUCCESS" : "FAILED") \
+        (\(String(format: "%.2f", entry.duration))s, freed \(freed))
+          Command: \(entry.command)
+          Output: \(entry.output)
+        ---
+
+        """
+
+        guard let data = logLine.data(using: .utf8) else { return }
+
+        if !FileManager.default.fileExists(atPath: sessionLogFile.path) {
+            FileManager.default.createFile(atPath: sessionLogFile.path, contents: data)
+            return
         }
+
+        guard let handle = try? FileHandle(forWritingTo: sessionLogFile) else {
+            try? data.write(to: sessionLogFile)
+            return
+        }
+        defer { try? handle.close() }
+        _ = try? handle.seekToEnd()
+        try? handle.write(contentsOf: data)
     }
-    
+
     func getRecentLogs(count: Int = 50) -> String {
-        return entries.prefix(count).map { entry in
-            "[\(dateFormatter.string(from: entry.timestamp))] \(entry.task): \(entry.success ? "✓" : "✗")\n  Command: \(entry.command)\n  Output: \(entry.output)\n"
+        entries.prefix(count).map { entry in
+            let freed = ByteCountFormatter.string(fromByteCount: entry.freedBytes, countStyle: .file)
+            return "[\(dateFormatter.string(from: entry.timestamp))] \(entry.task): \(entry.success ? "✓" : "✗") (\(freed))\n  \(entry.output)\n"
         }.joined()
     }
-    
+
+    var directoryURL: URL { logDirectory }
+
     private var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateFormat = "MMM d, yyyy h:mm:ss a"
         return formatter
-    }
-}
-
-extension Data {
-    mutating func append(to file: URL) throws {
-        if let fileHandle = try? FileHandle(forWritingTo: file) {
-            defer { fileHandle.closeFile() }
-            fileHandle.seekToEndOfFile()
-            try write(fileHandle)
-        } else {
-            try write(to: file)
-        }
-    }
-    
-    private mutating func write(_ fileHandle: FileHandle) throws {
-        try fileHandle.write(contentsOf: self)
-    }
-}
-
-extension String {
-    func colonReplacement(_ replacement: String) -> String {
-        return self.replacingOccurrences(of: ":", with: replacement)
     }
 }

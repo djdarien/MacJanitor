@@ -1,23 +1,18 @@
 import Foundation
+import MacJanitorCore
 
-class ShellExecutor {
+enum ShellExecutor {
     static func execute(_ command: String) async -> (String?, Int32) {
-        let process = Process()
-        let pipe = Pipe()
+        await ProcessCommandRunner.execute(command)
+    }
+}
 
-        process.standardOutput = pipe
-        process.standardError = pipe
-        process.arguments = ["-c", command]
-        process.launchPath = "/bin/zsh"
-
-        do {
-            try process.run()
-            let data = pipe.fileHandleForReading.readDataToEndOfFile()
-            process.waitUntilExit()
-            let output = String(data: data, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines)
-            return (output, process.terminationStatus)
-        } catch {
-            return (nil, -1)
+/// Routes admin vs user commands for `CleanupEngine`.
+struct AppCommandRunner: CommandRunner {
+    func run(_ command: String, asAdmin: Bool) async -> (output: String?, status: Int32) {
+        if asAdmin {
+            return await AdminExecutor.execute(command)
         }
+        return await ProcessCommandRunner.execute(command)
     }
 }

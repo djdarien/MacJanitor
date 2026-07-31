@@ -1,6 +1,7 @@
+import AppKit
 import SwiftUI
 
-struct AlertManager {
+enum AlertManager {
     static func showConfirmation(title: String, message: String, onConfirm: @escaping () -> Void) {
         let alert = NSAlert()
         alert.messageText = title

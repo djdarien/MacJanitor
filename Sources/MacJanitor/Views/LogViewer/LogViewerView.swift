@@ -96,24 +96,47 @@ struct LogViewerView: View {
     private func loadLogs() {
         isLoading = true
         Task {
-            let (output, _) = await ShellExecutor.execute("find ~/Library/Logs/MacJanitor -name '*.log' -exec cat {} \\; 2>/dev/null | tail -n 100")
-            DispatchQueue.main.async {
-                if let output = output, !output.isEmpty {
-                    logContent = output
-                } else {
-                    logContent = ""
+            let logsPath = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask)[0]
+                .appendingPathComponent("Logs")
+                .appendingPathComponent("MacJanitor")
+
+            let fm = FileManager.default
+            let files = (try? fm.contentsOfDirectory(at: logsPath, includingPropertiesForKeys: [.contentModificationDateKey], options: [.skipsHiddenFiles])) ?? []
+            let logFiles = files
+                .filter { $0.pathExtension == "log" }
+                .sorted { a, b in
+                    let da = (try? a.resourceValues(forKeys: [.contentModificationDateKey]).contentModificationDate) ?? .distantPast
+                    let db = (try? b.resourceValues(forKeys: [.contentModificationDateKey]).contentModificationDate) ?? .distantPast
+                    return da > db
                 }
+
+            var combined = ""
+            for file in logFiles.prefix(5) {
+                if let text = try? String(contentsOf: file, encoding: .utf8) {
+                    combined += text
+                }
+            }
+            let lines = combined.split(separator: "\n", omittingEmptySubsequences: false)
+            let tail = lines.suffix(100).joined(separator: "\n")
+
+            await MainActor.run {
+                logContent = tail
                 isLoading = false
             }
         }
     }
-    
+
     private func clearLogs() {
-        Task {
-            await ShellExecutor.execute("rm -f ~/Library/Logs/MacJanitor/*.log")
-            logContent = ""
-            checkLogDirectory()
+        let logsPath = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask)[0]
+            .appendingPathComponent("Logs")
+            .appendingPathComponent("MacJanitor")
+        if let files = try? FileManager.default.contentsOfDirectory(at: logsPath, includingPropertiesForKeys: nil) {
+            for file in files where file.pathExtension == "log" {
+                try? FileManager.default.removeItem(at: file)
+            }
         }
+        logContent = ""
+        checkLogDirectory()
     }
     
     private func openLogFolder() {

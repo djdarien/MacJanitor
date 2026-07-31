@@ -1,4 +1,6 @@
 #!/bin/bash
+# ⚠️ DEPRECATED — use MacJanitor v3 Swift app (~/MacJanitor-v3) instead.
+
 
 ######################################################################################
 # This script does some maintenance operations on Mac OS X (10.11 and greater)      #

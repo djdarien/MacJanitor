@@ -1,35 +1,32 @@
 # MacJanitor Changelog
 
-## Version 2.1.0 (Current)
+## Version 3.0.0 — Consolidated Real Cleanup
 
-### Changes
-- Added secure admin elevation for maintenance tasks that require privileges
-- Implemented AdminExecutor using macOS Authorization Services
-- Added visual indicators for admin-required tasks
-- Tasks now execute properly with appropriate permissions
-- Maintained dashboard functionality (no changes)
+### Product
+- Single canonical project: **MacJanitor-v3**
+- Merged GUI app + real cleanup engine + tests
+- Version branding **3.0.0**
 
-### Technical Details
-- Created AdminExecutor.swift using NSAppleScript for privileged command execution
-- Added requiresAdmin property to MaintenanceTaskType
-- Updated MaintenanceManager to route tasks based on privilege requirements
-- Added lock icons for admin tasks in UI
-- Preserved user-level task execution via ShellExecutor
-- Build successful, app launches and maintenance tasks execute with proper permissions
+### Critical fixes (from real-cleanup work)
+- **Empty Trash** via `FileManager` (user `~/.Trash` + volume **`.Trashes`**)
+- Fixed wrong path `.Trashed` → `.Trashes`
+- **AdminExecutor** runs a temp script (no broken `$` escaping)
+- Shell **nullglob** so empty globs do not fail tasks
+- **OperationLogger** creates log files before writing
+- UI shows **bytes freed** and per-task messages
+- **Dry run** mode (scan only)
 
-## Version 2.0.0
+### Architecture
+- `MacJanitorCore` library + `MacJanitor` executable
+- `swift test` — unit tests for trash, age filter, admin routing
 
-### Changes
-- Fixed dashboard not displaying system information (macOS version, disk space, etc.)
-- Created missing ShellExecutor service to handle command execution
-- Removed sudo from maintenance commands to prevent password prompts and hanging
-- Added automatic system info refresh on dashboard load
-- Improved error handling for maintenance tasks
+### Docs
+- `docs/MIGRATION.md` — old folder map
+- `docs/ARCHITECTURE.md` — engine overview
+- Legacy bash scripts under `legacy/`
 
-### Technical Details
-- Added .onAppear to DashboardView for system info refresh
-- Implemented ShellExecutor.swift with async command execution
-- Modified MaintenanceManager commands to be user-safe (no admin privileges required)
-- Maintained task selection and progress tracking functionality
-- Updated package name to MacJanitorV2 to avoid build conflicts
-- Build successful, app launches without hanging
+---
+
+## Earlier history
+
+See git history and prior BUILD_SUMMARY for v2 / v5 GUI milestones.
