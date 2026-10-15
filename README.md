@@ -13,6 +13,9 @@ v3 emptied Trash reliably but other tasks often did little (age filters, restric
 - Empty Trash (user + volumes + Finder fallback)
 - User / Safari / system cache cleanup (7-day retention)
 - **Xcode DerivedData** cleanup
+- **Browser caches** (Chrome, Firefox, Edge, Brave)
+- **iOS Simulator** caches
+- **Package caches** (npm, yarn, pip)
 - **User logs** and **old Downloads** (30-day)
 - **Homebrew cleanup** (if installed)
 - Classic **periodic daily/weekly/monthly** scripts
@@ -36,7 +39,7 @@ open dist/MacJanitor.app
 ## Usage
 
 1. Launch Mac Janitor
-2. Enable desired tasks (try Xcode DerivedData and User Logs first)
+2. Enable desired tasks (try Xcode DerivedData, Browser Caches, Package Caches, and User Logs first)
 3. Optional dry run
 4. Start Maintenance (admin prompt for privileged tasks)
 
