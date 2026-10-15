@@ -1,5 +1,25 @@
 # MacJanitor Changelog
 
+## Version 4.0.0 — Enhanced Practical Cleanup
+
+### Added
+- Xcode DerivedData cleanup
+- User Library/Logs cleanup (age-gated)
+- Old Downloads cleanup (30-day retention)
+- Homebrew cleanup task
+- Classic periodic daily/weekly/monthly maintenance scripts
+- Finder empty-trash fallback for more reliable Trash emptying
+- More resilient admin command handling (fallbacks when tools unavailable)
+
+### Improved
+- Trash emptying now combines FileManager + Finder
+- System tasks less likely to hard-fail on modern macOS
+
+### Notes
+User-level tasks (caches, logs, DerivedData, Downloads) do the real work without admin prompts. System tasks still require password.
+
+---
+
 ## Version 3.0.0 — Consolidated Real Cleanup
 
 ### Product
