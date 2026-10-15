@@ -1,2 +1,7 @@
+.DS_Store
 Resources/.DS_Store
+.build/
+dist/
+*.xcuserstate
+DerivedData/
 .DS_Store
