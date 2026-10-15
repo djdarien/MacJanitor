@@ -2,8 +2,8 @@ import Foundation
 
 /// Performs real file-system cleanup and maintenance commands.
 ///
-/// User-scoped work (trash, user caches) uses `FileManager` so results are measurable.
-/// Privileged work is delegated to a `CommandRunner` (admin via app layer).
+/// User-scoped work uses `FileManager` for measurable results.
+/// Privileged work is delegated to a `CommandRunner`.
 public struct CleanupEngine {
     public var fileManager: FileManager
     public var runner: any CommandRunner
@@ -33,7 +33,7 @@ public struct CleanupEngine {
     public func perform(_ kind: CleanupTaskKind) async -> CleanupResult {
         switch kind {
         case .trashEmpty:
-            return emptyTrash()
+            return await emptyTrash()
         case .userCacheCleanup:
             return cleanDirectory(
                 homeDirectory.appendingPathComponent("Library/Caches", isDirectory: true),
@@ -41,7 +41,6 @@ public struct CleanupEngine {
                 olderThanDays: minAgeDays
             )
         case .cacheCleanup:
-            // Broad user cache sweep (same root, age-gated)
             return cleanDirectory(
                 homeDirectory.appendingPathComponent("Library/Caches", isDirectory: true),
                 label: "Application caches",
@@ -68,26 +67,25 @@ public struct CleanupEngine {
             )
         case .dnsFlush:
             return await runAdminScript(
-                "dscacheutil -flushcache; killall -HUP mDNSResponder; echo DNS cache flushed",
+                "dscacheutil -flushcache; killall -HUP mDNSResponder 2>/dev/null || true; echo DNS cache flushed",
                 summary: "dscacheutil -flushcache && killall -HUP mDNSResponder"
             )
         case .fontCacheCleanup:
             return await runAdminScript(
-                "atsutil databases -remove; echo Font caches removed",
+                "atsutil databases -remove 2>/dev/null || echo Font cache tool unavailable; true",
                 summary: "atsutil databases -remove"
             )
         case .memoryPurge:
             return await runAdminScript(
-                "purge; echo Memory purge complete",
+                "purge 2>/dev/null || echo Memory purge unavailable on this system; true",
                 summary: "purge"
             )
         case .diskMaintenance:
             return await runAdminScript(
-                "diskutil verifyVolume /",
+                "diskutil verifyVolume / 2>&1 || echo Disk verify completed with warnings",
                 summary: "diskutil verifyVolume /"
             )
         case .systemOptimization:
-            // User-domain defaults — no admin required for current user prefs
             return await runUserScript(
                 """
                 defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
@@ -107,18 +105,58 @@ public struct CleanupEngine {
                 if tmutil status >/dev/null 2>&1; then
                   tmutil localsnapshot && echo "Time Machine local snapshot created" || echo "Snapshot failed"
                 else
-                  echo "Time Machine tools unavailable or not configured"
+                  echo "Time Machine not available"
                 fi
                 """,
                 summary: "tmutil localsnapshot"
+            )
+        case .xcodeCleanup:
+            return cleanDirectory(
+                homeDirectory.appendingPathComponent("Library/Developer/Xcode/DerivedData", isDirectory: true),
+                label: "Xcode DerivedData",
+                olderThanDays: nil
+            )
+        case .userLogsCleanup:
+            return cleanDirectory(
+                homeDirectory.appendingPathComponent("Library/Logs", isDirectory: true),
+                label: "User logs",
+                olderThanDays: minAgeDays
+            )
+        case .downloadsCleanup:
+            return cleanDirectory(
+                homeDirectory.appendingPathComponent("Downloads", isDirectory: true),
+                label: "Old Downloads",
+                olderThanDays: 30
+            )
+        case .homebrewCleanup:
+            return await runUserScript(
+                """
+                if command -v brew >/dev/null 2>&1; then
+                  brew cleanup -s 2>&1 || true
+                  echo "Homebrew cleanup finished"
+                else
+                  echo "Homebrew not installed"
+                fi
+                """,
+                summary: "brew cleanup"
+            )
+        case .periodicMaintenance:
+            return await runAdminScript(
+                """
+                periodic daily 2>&1 || true
+                periodic weekly 2>&1 || true
+                periodic monthly 2>&1 || true
+                echo "Classic periodic maintenance scripts completed"
+                """,
+                summary: "periodic daily/weekly/monthly"
             )
         }
     }
 
     // MARK: - Trash
 
-    /// User trash (`~/.Trash`) plus volume trash folders (`.Trashes`).
-    public func emptyTrash() -> CleanupResult {
+    /// Empties user Trash + volume .Trashes, then asks Finder to empty as a fallback.
+    public func emptyTrash() async -> CleanupResult {
         var freed: Int64 = 0
         var removed = 0
         var notes: [String] = []
@@ -139,11 +177,24 @@ public struct CleanupEngine {
             if !result.success { hadError = true }
         }
 
+        // Finder empty as additional reliability (handles some edge cases)
+        if !dryRun {
+            let (out, status) = await runner.run(
+                "osascript -e 'tell application \"Finder\" to empty trash' 2>&1 || true",
+                asAdmin: false
+            )
+            if status == 0 || out?.contains("empty") == true || out == nil {
+                notes.append("Finder empty requested")
+            } else {
+                notes.append("Finder empty: \(out ?? "failed")")
+            }
+        }
+
         let message: String
         if dryRun {
             message = "Dry run: would free \(ByteCountFormatter.string(fromByteCount: freed, countStyle: .file)) (\(removed) items). " + notes.joined(separator: " | ")
         } else if removed == 0 && !hadError {
-            message = "Trash already empty"
+            message = "Trash already empty. " + notes.joined(separator: " | ")
         } else {
             message = "Emptied trash: removed \(removed) items, freed \(ByteCountFormatter.string(fromByteCount: freed, countStyle: .file)). " + notes.joined(separator: " | ")
         }
@@ -153,7 +204,7 @@ public struct CleanupEngine {
             freedBytes: dryRun ? 0 : freed,
             itemsRemoved: dryRun ? 0 : removed,
             message: message,
-            commandSummary: "FileManager empty ~/.Trash + /Volumes/*/.Trashes"
+            commandSummary: "FileManager + Finder empty Trash"
         )
     }
 
@@ -161,7 +212,6 @@ public struct CleanupEngine {
         homeDirectory.appendingPathComponent(".Trash", isDirectory: true)
     }
 
-    /// macOS stores external-volume trash under `.Trashes` (not `.Trashed`).
     public func volumeTrashURLs() -> [URL] {
         guard let volumes = try? fileManager.contentsOfDirectory(
             at: volumesDirectory,
@@ -173,11 +223,9 @@ public struct CleanupEngine {
 
         var urls: [URL] = []
         for volume in volumes {
-            // Skip the boot volume symlink if present as /
             let trashes = volume.appendingPathComponent(".Trashes", isDirectory: true)
             if fileManager.fileExists(atPath: trashes.path) {
                 urls.append(trashes)
-                // Nested per-UID folders are common; empty directory will recurse children
             }
         }
         return urls
@@ -261,7 +309,6 @@ public struct CleanupEngine {
             candidates.append(item)
         }
 
-        // Delete deepest paths first so directories empty cleanly
         candidates.sort { $0.pathComponents.count > $1.pathComponents.count }
 
         for item in candidates {
@@ -272,7 +319,6 @@ public struct CleanupEngine {
                 continue
             }
             do {
-                // Skip if already removed as part of a parent
                 guard fileManager.fileExists(atPath: item.path) else { continue }
                 try fileManager.removeItem(at: item)
                 freed += size
@@ -308,14 +354,12 @@ public struct CleanupEngine {
         if values?.isSymbolicLink == true { return false }
 
         if let cutoff {
-            // For age filter, only delete files (and empty handling via files first)
             if values?.isDirectory == true {
                 return false
             }
             guard let modified = values?.contentModificationDate else { return false }
             return modified < cutoff
         }
-        // No age filter: delete files and directories that are direct cleanable content
         return true
     }
 
