@@ -19,6 +19,9 @@ enum MaintenanceTaskType: String, CaseIterable, Identifiable, Codable {
     case downloadsCleanup = "Old Downloads"
     case homebrewCleanup = "Homebrew Cleanup"
     case periodicMaintenance = "Periodic Scripts"
+    case browserCaches = "Browser Caches"
+    case simulatorCleanup = "iOS Simulator"
+    case packageCaches = "Package Caches"
 
     var id: String { rawValue }
 
@@ -58,6 +61,12 @@ enum MaintenanceTaskType: String, CaseIterable, Identifiable, Codable {
             return "Run brew cleanup (if Homebrew is installed)"
         case .periodicMaintenance:
             return "Run classic daily/weekly/monthly maintenance scripts"
+        case .browserCaches:
+            return "Clear Chrome, Firefox, Edge, and Brave caches"
+        case .simulatorCleanup:
+            return "Remove iOS Simulator caches and unavailable devices"
+        case .packageCaches:
+            return "Clean npm, yarn, pip, and similar package caches"
         }
     }
 
@@ -80,6 +89,9 @@ enum MaintenanceTaskType: String, CaseIterable, Identifiable, Codable {
         case .downloadsCleanup: return "arrow.down.circle"
         case .homebrewCleanup: return "cup.and.saucer"
         case .periodicMaintenance: return "calendar"
+        case .browserCaches: return "globe"
+        case .simulatorCleanup: return "iphone"
+        case .packageCaches: return "shippingbox"
         }
     }
 
@@ -115,6 +127,9 @@ enum MaintenanceTaskType: String, CaseIterable, Identifiable, Codable {
         case .downloadsCleanup: return 20
         case .homebrewCleanup: return 30
         case .periodicMaintenance: return 60
+        case .browserCaches: return 20
+        case .simulatorCleanup: return 25
+        case .packageCaches: return 20
         }
     }
 
@@ -137,6 +152,9 @@ enum MaintenanceTaskType: String, CaseIterable, Identifiable, Codable {
         case .downloadsCleanup: return .downloadsCleanup
         case .homebrewCleanup: return .homebrewCleanup
         case .periodicMaintenance: return .periodicMaintenance
+        case .browserCaches: return .browserCaches
+        case .simulatorCleanup: return .simulatorCleanup
+        case .packageCaches: return .packageCaches
         }
     }
 }
