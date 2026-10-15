@@ -1,67 +1,52 @@
-# Mac Janitor v3
+# Mac Janitor v4
 
-Native macOS maintenance app that **actually empties Trash and cleans caches**, with a SwiftUI UI and measurable results (bytes freed).
+Native macOS maintenance app that cleans caches, empties Trash, removes developer junk, and runs classic periodic scripts.
 
-**Local project:** `~/MacJanitor-v3`  
 **GitHub:** [github.com/djdarien/MacJanitor](https://github.com/djdarien/MacJanitor)
 
-## Why v3
+## Why v4
 
-Older copies (`MacJanitor-v2`, `v2.1`, multiple Untitled trees) had a working-looking GUI but cleanup often failed silently (wrong volume trash path, broken admin escaping, zsh glob errors). **v3 consolidates everything** into one tree with a real `CleanupEngine`.
+v3 emptied Trash reliably but other tasks often did little (age filters, restricted system commands). v4 adds practical user-level cleanups that free real space and makes system tasks more resilient.
 
 ## Features
 
-- Empty Trash (user + external volumes via `.Trashes`)
+- Empty Trash (user + volumes + Finder fallback)
 - User / Safari / system cache cleanup (7-day retention)
-- Log cleanup (7-day retention)
+- **Xcode DerivedData** cleanup
+- **User logs** and **old Downloads** (30-day)
+- **Homebrew cleanup** (if installed)
+- Classic **periodic daily/weekly/monthly** scripts
 - DNS flush, font cache, memory purge, disk verify, Time Machine snapshot
-- Dry run (report only)
-- Per-task success/failure + bytes freed
-- Logs: `~/Library/Logs/MacJanitor/` — open with **⌘⇧2**
+- Dry run, per-task success/failure + bytes freed
+- Logs: `~/Library/Logs/MacJanitor/`
 
 ## Requirements
 
-- macOS 12+ (Monterey or later)
-- Admin password for system-level tasks (lock icon in the list)
+- macOS 12+
+- Admin password for system tasks
 
 ## Build
 
 ```bash
-cd ~/MacJanitor-v3
-
-# Unit tests (no sudo; uses temp fixtures)
 swift test
-
-# Release .app (ad-hoc signed)
 ./Scripts/build_app.sh
 open dist/MacJanitor.app
 ```
 
-Open `Package.swift` in Xcode if you prefer the IDE.
-
 ## Usage
 
-1. Launch Mac Janitor  
-2. **Dashboard** — system info + disk space  
-3. **Maintenance** — enable tasks (start with Empty Trash to verify)  
-4. Optional: **Dry run** to preview  
-5. **Start Maintenance** — confirm; enter admin password when asked  
+1. Launch Mac Janitor
+2. Enable desired tasks (try Xcode DerivedData and User Logs first)
+3. Optional dry run
+4. Start Maintenance (admin prompt for privileged tasks)
 
 ## Project layout
 
 ```text
-Sources/MacJanitorCore/   # CleanupEngine (tested)
+Sources/MacJanitorCore/   # CleanupEngine
 Sources/MacJanitor/       # SwiftUI app
 Tests/MacJanitorTests/
 Scripts/build_app.sh
-docs/MIGRATION.md
-legacy/                   # old bash scripts (deprecated)
 ```
 
-## Legacy folders
-
-Do not develop in `~/MacJanitor-v2` or `~/MacJanitor-v2.1`. See [docs/MIGRATION.md](docs/MIGRATION.md).
-
-## License
-
-See [LICENSE](LICENSE).
+See [CHANGELOG.md](CHANGELOG.md) for details.
