@@ -65,6 +65,9 @@ public enum CleanupTaskKind: String, CaseIterable, Sendable {
     case downloadsCleanup
     case homebrewCleanup
     case periodicMaintenance
+    case browserCaches
+    case simulatorCleanup
+    case packageCaches
 
     public var requiresAdmin: Bool {
         switch self {
@@ -72,8 +75,7 @@ public enum CleanupTaskKind: String, CaseIterable, Sendable {
              .logCleanup, .memoryPurge, .systemCacheCleanup, .timeMachineSnapshot,
              .periodicMaintenance:
             return true
-        case .cacheCleanup, .trashEmpty, .safariCleanup, .userCacheCleanup,
-             .xcodeCleanup, .userLogsCleanup, .downloadsCleanup, .homebrewCleanup:
+        default:
             return false
         }
     }
