@@ -150,6 +150,12 @@ public struct CleanupEngine {
                 """,
                 summary: "periodic daily/weekly/monthly"
             )
+        case .browserCaches:
+            return cleanBrowserCaches()
+        case .simulatorCleanup:
+            return cleanSimulator()
+        case .packageCaches:
+            return await cleanPackageCaches()
         }
     }
 
@@ -389,6 +395,125 @@ public struct CleanupEngine {
             itemsRemoved: removed,
             message: messages.joined(separator: " | "),
             commandSummary: "Safari cache directories"
+        )
+    }
+
+    // MARK: - New cleanups
+
+    public func cleanBrowserCaches() -> CleanupResult {
+        let relativePaths = [
+            "Library/Caches/Google/Chrome",
+            "Library/Caches/com.google.Chrome",
+            "Library/Caches/Firefox",
+            "Library/Caches/Mozilla/Firefox",
+            "Library/Caches/Microsoft Edge",
+            "Library/Caches/com.microsoft.edgemac",
+            "Library/Caches/BraveSoftware/Brave-Browser",
+            "Library/Caches/com.brave.Browser",
+        ]
+
+        var freed: Int64 = 0
+        var removed = 0
+        var messages: [String] = []
+        var ok = true
+
+        for rel in relativePaths {
+            let root = homeDirectory.appendingPathComponent(rel, isDirectory: true)
+            let result = cleanDirectory(root, label: root.lastPathComponent, olderThanDays: nil)
+            freed += result.freedBytes
+            removed += result.itemsRemoved
+            if result.itemsRemoved > 0 || !result.message.contains("not found") {
+                messages.append(result.message)
+            }
+            if !result.success { ok = false }
+        }
+
+        let msg = messages.isEmpty ? "No browser caches found" : messages.joined(separator: " | ")
+        return CleanupResult(
+            success: ok,
+            freedBytes: freed,
+            itemsRemoved: removed,
+            message: msg,
+            commandSummary: "Browser cache directories"
+        )
+    }
+
+    public func cleanSimulator() -> CleanupResult {
+        let simRoot = homeDirectory.appendingPathComponent("Library/Developer/CoreSimulator", isDirectory: true)
+        guard fileManager.fileExists(atPath: simRoot.path) else {
+            return .success(message: "No iOS Simulator data found", command: simRoot.path)
+        }
+
+        // Prefer caches and unavailable device data; avoid deleting current devices entirely
+        let caches = simRoot.appendingPathComponent("Caches", isDirectory: true)
+        let result = cleanDirectory(caches, label: "Simulator caches", olderThanDays: nil)
+
+        return CleanupResult(
+            success: result.success,
+            freedBytes: result.freedBytes,
+            itemsRemoved: result.itemsRemoved,
+            message: result.message,
+            commandSummary: "CoreSimulator caches"
+        )
+    }
+
+    public func cleanPackageCaches() async -> CleanupResult {
+        var freed: Int64 = 0
+        var removed = 0
+        var messages: [String] = []
+
+        // npm
+        let npmCache = homeDirectory.appendingPathComponent(".npm", isDirectory: true)
+        if fileManager.fileExists(atPath: npmCache.path) {
+            let r = cleanDirectory(npmCache, label: "npm cache", olderThanDays: nil)
+            freed += r.freedBytes
+            removed += r.itemsRemoved
+            messages.append(r.message)
+        }
+
+        // yarn
+        let yarnCache = homeDirectory.appendingPathComponent("Library/Caches/Yarn", isDirectory: true)
+        if fileManager.fileExists(atPath: yarnCache.path) {
+            let r = cleanDirectory(yarnCache, label: "Yarn cache", olderThanDays: nil)
+            freed += r.freedBytes
+            removed += r.itemsRemoved
+            messages.append(r.message)
+        }
+
+        // pip
+        let pipCache = homeDirectory.appendingPathComponent("Library/Caches/pip", isDirectory: true)
+        if fileManager.fileExists(atPath: pipCache.path) {
+            let r = cleanDirectory(pipCache, label: "pip cache", olderThanDays: nil)
+            freed += r.freedBytes
+            removed += r.itemsRemoved
+            messages.append(r.message)
+        }
+
+        // Also try commands if available
+        if !dryRun {
+            let (out, _) = await runner.run(
+                """
+                (command -v npm >/dev/null && npm cache clean --force 2>&1 || true)
+                (command -v yarn >/dev/null && yarn cache clean 2>&1 || true)
+                (command -v pip >/dev/null && pip cache purge 2>&1 || true)
+                echo "Package cache commands finished"
+                """,
+                asAdmin: false
+            )
+            if let out, !out.isEmpty {
+                messages.append(out)
+            }
+        } else {
+            messages.append("Dry run: would run npm/yarn/pip cache clean")
+        }
+
+        let msg = messages.isEmpty ? "No package caches found" : messages.joined(separator: " | ")
+        return CleanupResult(
+            success: true,
+            freedBytes: freed,
+            itemsRemoved: removed,
+            message: msg,
+            commandSummary: "npm/yarn/pip caches"
         )
     }
 
