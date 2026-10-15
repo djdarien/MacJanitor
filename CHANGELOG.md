@@ -10,13 +10,16 @@
 - Classic periodic daily/weekly/monthly maintenance scripts
 - Finder empty-trash fallback for more reliable Trash emptying
 - More resilient admin command handling (fallbacks when tools unavailable)
+- Browser caches (Chrome, Firefox, Edge, Brave)
+- iOS Simulator caches
+- Package caches (npm, yarn, pip)
 
 ### Improved
 - Trash emptying now combines FileManager + Finder
 - System tasks less likely to hard-fail on modern macOS
 
 ### Notes
-User-level tasks (caches, logs, DerivedData, Downloads) do the real work without admin prompts. System tasks still require password.
+User-level tasks (caches, logs, DerivedData, Downloads, browsers, packages, simulator) do the real work without admin prompts. System tasks still require password.
 
 ---
 
