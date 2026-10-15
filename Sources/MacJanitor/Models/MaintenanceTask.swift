@@ -14,6 +14,11 @@ enum MaintenanceTaskType: String, CaseIterable, Identifiable, Codable {
     case systemCacheCleanup = "System Cache Cleanup"
     case userCacheCleanup = "User Cache Cleanup"
     case timeMachineSnapshot = "Time Machine Snapshot"
+    case xcodeCleanup = "Xcode Derived Data"
+    case userLogsCleanup = "User Logs"
+    case downloadsCleanup = "Old Downloads"
+    case homebrewCleanup = "Homebrew Cleanup"
+    case periodicMaintenance = "Periodic Scripts"
 
     var id: String { rawValue }
 
@@ -43,6 +48,16 @@ enum MaintenanceTaskType: String, CaseIterable, Identifiable, Codable {
             return "Clear user caches older than 7 days"
         case .timeMachineSnapshot:
             return "Create a local Time Machine snapshot"
+        case .xcodeCleanup:
+            return "Remove Xcode DerivedData (rebuilds required)"
+        case .userLogsCleanup:
+            return "Clear user Library/Logs older than 7 days"
+        case .downloadsCleanup:
+            return "Remove files in Downloads older than 30 days"
+        case .homebrewCleanup:
+            return "Run brew cleanup (if Homebrew is installed)"
+        case .periodicMaintenance:
+            return "Run classic daily/weekly/monthly maintenance scripts"
         }
     }
 
@@ -60,6 +75,11 @@ enum MaintenanceTaskType: String, CaseIterable, Identifiable, Codable {
         case .systemCacheCleanup: return "gearshape.2"
         case .userCacheCleanup: return "person.crop.circle"
         case .timeMachineSnapshot: return "clock.arrow.circlepath"
+        case .xcodeCleanup: return "hammer"
+        case .userLogsCleanup: return "doc.plaintext"
+        case .downloadsCleanup: return "arrow.down.circle"
+        case .homebrewCleanup: return "cup.and.saucer"
+        case .periodicMaintenance: return "calendar"
         }
     }
 
@@ -90,6 +110,11 @@ enum MaintenanceTaskType: String, CaseIterable, Identifiable, Codable {
         case .systemCacheCleanup: return 25
         case .userCacheCleanup: return 20
         case .timeMachineSnapshot: return 30
+        case .xcodeCleanup: return 15
+        case .userLogsCleanup: return 15
+        case .downloadsCleanup: return 20
+        case .homebrewCleanup: return 30
+        case .periodicMaintenance: return 60
         }
     }
 
@@ -107,6 +132,11 @@ enum MaintenanceTaskType: String, CaseIterable, Identifiable, Codable {
         case .systemCacheCleanup: return .systemCacheCleanup
         case .userCacheCleanup: return .userCacheCleanup
         case .timeMachineSnapshot: return .timeMachineSnapshot
+        case .xcodeCleanup: return .xcodeCleanup
+        case .userLogsCleanup: return .userLogsCleanup
+        case .downloadsCleanup: return .downloadsCleanup
+        case .homebrewCleanup: return .homebrewCleanup
+        case .periodicMaintenance: return .periodicMaintenance
         }
     }
 }
