@@ -1,5 +1,19 @@
 # MacJanitor Changelog
 
+## Version 3.1.0 — Cleanup beyond the Trash
+
+### What actually gets deleted now
+- User caches in `~/Library/Caches` are cleared even when they were used recently (**Deep cache clean**, on by default). Turn it off to keep the 7-day retention policy.
+- Sandboxed app caches under `~/Library/Containers` and `~/Library/Group Containers` are included. The rest of each container is left alone.
+- Browser cleanup covers Safari, Chrome, Edge, Brave, Arc, and Firefox cache folders. History, cookies, bookmarks, and saved passwords stay.
+- New **Developer Junk** task removes Xcode DerivedData, device-support files, CoreSimulator caches, and package-manager caches. Archives, source, and simulator devices stay.
+- **Temporary Files** replaces the old animation-defaults “System Optimization” task, which rewrote Dock and Finder preferences and killed those apps. Temp files older than 1 day and the Quick Look cache are removed instead.
+- Log cleanup removes user logs and crash reports older than 7 days without an administrator password. System logs still elevate only when the user cannot delete them.
+- System cache cleanup measures files first and asks for an administrator password only when deletion is denied.
+
+### Left untouched
+Documents, Desktop, Downloads, Mail, Messages, Photos, iCloud Drive, keychains, iOS backups, and protected caches (iCloud, Photos, Music, TV, HomeKit, passwords, Messages).
+
 ## Version 3.0.0 — Consolidated Real Cleanup
 
 ### Product

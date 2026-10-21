@@ -2,6 +2,7 @@ import SwiftUI
 
 struct DashboardView: View {
     @EnvironmentObject var systemProfiler: SystemProfiler
+    @EnvironmentObject var maintenanceManager: MaintenanceManager
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -12,6 +13,19 @@ struct DashboardView: View {
             SystemInfoGrid()
             
             DiskSpaceView()
+
+            if !maintenanceManager.lastRunSummary.isEmpty {
+                HStack {
+                    Image(systemName: "sparkles")
+                        .foregroundColor(.green)
+                    Text(maintenanceManager.lastRunSummary)
+                        .font(.callout)
+                }
+                .padding(10)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color.green.opacity(0.12))
+                .cornerRadius(8)
+            }
             
             Spacer()
         }

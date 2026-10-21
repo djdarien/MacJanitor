@@ -16,6 +16,10 @@ struct SettingsView: View {
                     Text("Dry run scans and reports sizes without deleting. Turn off for real cleanup.")
                         .font(.caption)
                         .foregroundColor(.secondary)
+                    Toggle("Deep cache clean", isOn: $maintenanceManager.deepCacheClean)
+                    Text("Clears user and app caches even when they were used recently. iCloud, Photos, Music, Messages, passwords, and browser history are never deleted. Turn off to keep caches newer than 7 days.")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(4)
@@ -39,9 +43,9 @@ struct SettingsView: View {
                     HStack {
                         Text("Version")
                         Spacer()
-                        Text("3.0.0")
+                        Text("3.1.0")
                     }
-                    Text("Real cleanup engine: FileManager trash/caches + admin shell for system tasks.")
+                    Text("Clears Trash, regenerable caches, browser caches, logs, temporary files, and developer junk. Personal files, mail, photos, and passwords are left alone.")
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
