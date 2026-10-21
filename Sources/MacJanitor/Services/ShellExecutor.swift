@@ -8,7 +8,7 @@ enum ShellExecutor {
 }
 
 /// Routes admin vs user commands for `CleanupEngine`.
-struct AppCommandRunner: CommandRunner {
+struct AppCommandRunner: CommandRunner, Sendable {
     func run(_ command: String, asAdmin: Bool) async -> (output: String?, status: Int32) {
         if asAdmin {
             return await AdminExecutor.execute(command)

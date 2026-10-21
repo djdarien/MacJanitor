@@ -10,7 +10,7 @@ struct MaintenanceView: View {
                 .font(.largeTitle)
                 .fontWeight(.bold)
 
-            Text("Tasks actually delete files and free disk space. Admin tasks will prompt for your password.")
+            Text("Space-freeing tasks delete regenerable junk. Documents, Mail, Photos, Messages, passwords, and browser history are left alone. Admin tasks prompt for your password.")
                 .font(.subheadline)
                 .foregroundColor(.secondary)
 
@@ -37,6 +37,11 @@ struct MaintenanceView: View {
         .onAppear {
             systemProfiler.checkTimeMachineStatus()
         }
+        .onChange(of: maintenanceManager.isRunning) { running in
+            if !running {
+                systemProfiler.refreshSystemInfo()
+            }
+        }
     }
 }
 
@@ -45,52 +50,67 @@ struct TaskList: View {
 
     var body: some View {
         List {
-            ForEach($maintenanceManager.tasks) { $task in
-                HStack(alignment: .top, spacing: 12) {
-                    Toggle(isOn: $task.isEnabled) {
-                        HStack(alignment: .top) {
-                            Image(systemName: task.type.icon)
-                                .font(.title2)
-                                .frame(width: 28)
-                                .foregroundColor(statusColor(task.status))
-
-                            VStack(alignment: .leading, spacing: 4) {
-                                HStack(spacing: 6) {
-                                    Text(task.type.rawValue)
-                                        .font(.headline)
-                                    if task.type.requiresAdmin {
-                                        Image(systemName: "lock.fill")
-                                            .font(.caption)
-                                            .foregroundColor(.orange)
-                                            .help("Requires administrator password")
-                                    }
-                                    statusBadge(task)
-                                }
-                                Text(task.type.description)
-                                    .font(.subheadline)
-                                    .foregroundColor(.secondary)
-                                if let result = task.resultMessage, task.status != .pending {
-                                    Text(result)
-                                        .font(.caption)
-                                        .foregroundColor(task.status == .failed ? .red : .secondary)
-                                        .lineLimit(3)
-                                }
-                                if task.freedBytes > 0 {
-                                    Text("Freed \(ByteCountFormatter.string(fromByteCount: task.freedBytes, countStyle: .file))")
-                                        .font(.caption)
-                                        .fontWeight(.semibold)
-                                        .foregroundColor(.green)
-                                }
-                            }
-                        }
+            Section("Frees disk space") {
+                ForEach($maintenanceManager.tasks) { $task in
+                    if task.type.freesDiskSpace {
+                        taskRow($task)
                     }
-                    .disabled(maintenanceManager.isRunning)
                 }
-                .padding(.vertical, 4)
+            }
+            Section("Other maintenance") {
+                ForEach($maintenanceManager.tasks) { $task in
+                    if !task.type.freesDiskSpace {
+                        taskRow($task)
+                    }
+                }
             }
         }
         .listStyle(.inset)
-        .frame(minHeight: 280)
+        .frame(minHeight: 360)
+    }
+
+    private func taskRow(_ task: Binding<MaintenanceTask>) -> some View {
+        HStack(alignment: .top, spacing: 12) {
+            Toggle(isOn: task.isEnabled) {
+                HStack(alignment: .top) {
+                    Image(systemName: task.wrappedValue.type.icon)
+                        .font(.title2)
+                        .frame(width: 28)
+                        .foregroundColor(statusColor(task.wrappedValue.status))
+
+                    VStack(alignment: .leading, spacing: 4) {
+                        HStack(spacing: 6) {
+                            Text(task.wrappedValue.type.rawValue)
+                                .font(.headline)
+                            if task.wrappedValue.type.requiresAdmin {
+                                Image(systemName: "lock.fill")
+                                    .font(.caption)
+                                    .foregroundColor(.orange)
+                                    .help("Requires administrator password")
+                            }
+                            statusBadge(task.wrappedValue)
+                        }
+                        Text(task.wrappedValue.type.description)
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                        if let result = task.wrappedValue.resultMessage, task.wrappedValue.status != .pending {
+                            Text(result)
+                                .font(.caption)
+                                .foregroundColor(task.wrappedValue.status == .failed ? .red : .secondary)
+                                .lineLimit(3)
+                        }
+                        if task.wrappedValue.freedBytes > 0 {
+                            Text("\(maintenanceManager.dryRun ? "Would free" : "Freed") \(ByteCountFormatter.string(fromByteCount: task.wrappedValue.freedBytes, countStyle: .file))")
+                                .font(.caption)
+                                .fontWeight(.semibold)
+                                .foregroundColor(.green)
+                        }
+                    }
+                }
+            }
+            .disabled(maintenanceManager.isRunning)
+        }
+        .padding(.vertical, 4)
     }
 
     private func statusColor(_ status: MaintenanceTask.TaskStatus) -> Color {
@@ -154,7 +174,6 @@ struct StatusView: View {
 
 struct ActionButtons: View {
     @EnvironmentObject var maintenanceManager: MaintenanceManager
-    @EnvironmentObject var systemProfiler: SystemProfiler
 
     var body: some View {
         HStack(spacing: 12) {
@@ -162,6 +181,11 @@ struct ActionButtons: View {
                 .toggleStyle(.checkbox)
                 .disabled(maintenanceManager.isRunning)
                 .help("Report what would be cleaned without deleting files")
+
+            Toggle("Deep cache clean", isOn: $maintenanceManager.deepCacheClean)
+                .toggleStyle(.checkbox)
+                .disabled(maintenanceManager.isRunning)
+                .help("Clear user and app caches even if they were used recently")
 
             Spacer()
 
@@ -175,14 +199,9 @@ struct ActionButtons: View {
                     title: maintenanceManager.dryRun ? "Run dry scan?" : "Start real cleanup?",
                     message: maintenanceManager.dryRun
                         ? "No files will be deleted. MacJanitor will only report what would be cleaned."
-                        : "This will empty Trash (if selected) and delete eligible cache/log files. Close other apps first. Admin tasks will ask for your password."
+                        : "This deletes Trash and the other selected junk: caches, browser caches, old logs, temporary files, and developer build products you enabled. Documents, Mail, Photos, Messages, passwords, and browser history stay. Admin tasks will ask for your password."
                 ) {
                     maintenanceManager.startMaintenance()
-                    // Refresh disk space after a short delay when finished is handled by user revisiting dashboard;
-                    // kick an early refresh so numbers move after run.
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        systemProfiler.refreshSystemInfo()
-                    }
                 }
             }
             .keyboardShortcut(.defaultAction)

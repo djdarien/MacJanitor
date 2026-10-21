@@ -11,6 +11,9 @@ final class MaintenanceManager: ObservableObject {
     @Published var requiresReboot = false
     @Published var operationLogger = OperationLogger()
     @Published var dryRun = false
+    /// When enabled, user and app caches are cleared even if they were used this week.
+    /// Protected iCloud, Photos, Music, Messages, and account folders are still skipped.
+    @Published var deepCacheClean = true
     @Published var lastRunFreedBytes: Int64 = 0
     @Published var lastRunSummary: String = ""
 
@@ -77,12 +80,14 @@ final class MaintenanceManager: ObservableObject {
 
         let taskType = tasks[taskIndex].type
         let useDryRun = dryRun
+        let deepClean = deepCacheClean
         let started = taskStartTime ?? Date()
 
-        Task { [weak self] in
+        Task.detached { [weak self] in
             let engine = CleanupEngine(
                 runner: AppCommandRunner(),
-                dryRun: useDryRun
+                dryRun: useDryRun,
+                deepCacheClean: deepClean
             )
             let result = await engine.perform(taskType.coreKind)
             let duration = Date().timeIntervalSince(started)
@@ -125,8 +130,8 @@ final class MaintenanceManager: ObservableObject {
         lastRunFreedBytes = runFreedBytes
         let freedText = ByteCountFormatter.string(fromByteCount: runFreedBytes, countStyle: .file)
         if dryRun {
-            currentTaskDescription = "Dry run complete"
-            lastRunSummary = "Dry run finished (no files deleted)"
+            currentTaskDescription = "Dry run complete — would free \(freedText)"
+            lastRunSummary = "Dry run: would free \(freedText) (no files deleted)"
         } else {
             currentTaskDescription = "Maintenance complete — freed \(freedText)"
             lastRunSummary = "Freed \(freedText) across completed tasks"
